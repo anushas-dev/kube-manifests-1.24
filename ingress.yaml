@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: myingress
+  labels:
+    name: myingress
+  namespace: anusha-test    
+spec:
+  rules:
+  - host: myappserver.zone
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: myapp-svc
+            port: 
+              number: 80

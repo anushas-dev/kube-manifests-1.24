@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: web
+  namespace: anusha-test
+spec:
+  serviceName: web-svc
+  podManagementPolicy: OrderedReady  # you must set OrderedReady
+  replicas: 5
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - image: k8s.gcr.io/nginx-slim:0.9
+        imagePullPolicy: IfNotPresent # Always if you don't want to use cached images on nodes
+        name: nginx
+  updateStrategy:
+    rollingUpdate:
+      maxUnavailable: 2 # this is the new alpha field, whose default value is 1
+      partition: 0
+    type: RollingUpdate
