@@ -1,0 +1,1 @@
+# kube-manifests-1.24
